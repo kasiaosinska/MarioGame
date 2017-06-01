@@ -40,7 +40,11 @@ section#score {
     border-right: 3px solid forestgreen;
 }
 
-section#score div {
+#score {
+    visibility: hidden;
+}
+
+#score div {
     width: 10em;
     height: 4em;
     text-align: center;
@@ -52,7 +56,7 @@ section#score div {
     margin: 1em auto;
 }
 
-.furry {
+.mario {
     background-image: url('../images/mario.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -63,7 +67,24 @@ section#score div {
     background-size: cover;
 }
 
+#start-game {
+    margin-top: 80px;
+    width: 100%;
+    height: 500px;
+    background-image: url("../images/game-over.gif");
+    position: absolute;
+    visibility: visible;
+}
+
+#start-game p {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 80px;
+}
+
+
 #game-over {
+    display: inline-block;
     margin: 0 auto;
     width: 100%;
     height: 500px;
@@ -78,26 +99,28 @@ section#score div {
     font-size: 80px;
 }
 
-#gameOverScore {
+#game-over-score {
     text-align: center;
     font-size: 40px;
 }
 
-#button {
+#button-game-over {
     text-align: center;
 }
 
-#play-again {
+#play-again, #start-game-button {
+    display: block;
     width: 100px;
     height: 50px;
     text-align: center;
     padding: 0.5em;
     background-color: rgba(211,211,211, 0.75);
     border: 1px solid lightgray;
-    border-radius: 1px;
+    border-radius: 5px;
     box-shadow: 1px 1px 5px 1px lightgray;
     margin: 5em auto;
-    font-weight: 700;
+    font-weight: 500;
+    align-items: center;
 }
 
 .bonus {

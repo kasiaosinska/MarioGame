@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
         this.board = document.querySelectorAll('#board>div');
         this.furryGame = new Furry();
         this.coinGame = new Coin();
-        this.bonus = new Coin();
         this.score = 0;
         this.idSetInterval = null;
         this.index = function (x, y) {
@@ -121,26 +120,16 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         this.showFurry = function () {
-            this.board[this.index(this.furryGame.x, this.furryGame.y)].classList.add('furry');
+            this.board[this.index(this.furryGame.x, this.furryGame.y)].classList.add('mario');
         };
 
         this.hideVisibleFurry = function () {
-            document.querySelector('.furry').classList.remove('furry');
+            document.querySelector('.mario').classList.remove('mario');
         };
 
         this.showCoin = function () {
             this.coinGame.randomizePosition();
             this.board[this.index(this.coinGame.x, this.coinGame.y)].classList.add('coin');
-        };
-
-        this.showBonus = function () {
-            if (this.score % 5 === 0) {
-                self.bonus.randomizePosition();
-                self.board[self.index(self.bonus.x, self.bonus.y)].classList.add('bonus');
-                setTimeout(function () {
-                    document.querySelector('.bonus').classList.remove('bonus');
-                }, 3500);
-            }
         };
 
         this.moveFurry = function () {
@@ -155,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.furryGame.y = this.furryGame.y + 1;
             }
             this.checkCoinCollision();
-            this.checkBonusCollision();
             if (!this.checkFurryCollision()) {
                 this.showFurry();
             }
@@ -183,14 +171,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.querySelector('.coin').classList.remove('coin');
                 this.scoreAdd(1);
                 this.showCoin();
-                this.showBonus();
-            }
-        };
-
-        this.checkBonusCollision = function () {
-            if (this.furryGame.x === this.bonus.x && this.furryGame.y === this.bonus.y) {
-                document.querySelector('.bonus').classList.remove('bonus');
-                this.scoreAdd(2);
             }
         };
 
@@ -211,9 +191,8 @@ document.addEventListener('DOMContentLoaded', function () {
         this.gameOver = function () {
             clearInterval(self.idSetInterval);
             document.querySelector('.coin').classList.remove('coin');
-
             document.getElementById('game-over').style.visibility = 'visible';
-            document.querySelector('#gameOverScore>span').innerText = this.score;
+            document.querySelector('#game-over-score>span').innerText = this.score;
             document.getElementById('score').style.visibility = 'hidden';
         };
 
@@ -240,7 +219,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var newGame = new Game();
-    newGame.init();
+    var startButton = document.getElementById('start-game-button');
+
+    startButton.addEventListener('click', function () {
+        document.getElementById('start-game').style.visibility = 'hidden';
+
+        newGame.init();
+    });
 
     document.addEventListener('keydown', function (event) {
         newGame.turnFurry(event);
